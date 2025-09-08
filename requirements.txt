@@ -14,4 +14,3 @@ plotly
 SQLAlchemy
 setuptools
 wheel
-psycopg2-binary
