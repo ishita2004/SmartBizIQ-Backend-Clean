@@ -25,7 +25,7 @@ from tensorflow.keras.layers import LSTM, GRU, Dense
 from io import StringIO
 
 from model.model import detect_anomalies
-from models import Base
+
 
 
 
@@ -218,7 +218,8 @@ async def segment_customers(file: UploadFile = File(...), method: str = Query("k
 async def predict_churn(file: UploadFile = File(...)):
     try:
         df = pd.read_csv(io.BytesIO(await file.read()))
-        if 'CustomerID' in df.columns: df.rename(columns={"CustomerID":"Customer"}, inplace=True)
+        if 'CustomerID' in df.columns:
+            df.rename(columns={"CustomerID":"Customer"}, inplace=True)
 
         required_cols = {'Customer','Gender','Age','Tenure','MonthlyCharges','TotalCharges'}
         if not required_cols.issubset(df.columns):
@@ -231,7 +232,10 @@ async def predict_churn(file: UploadFile = File(...)):
         X = df[['Gender','Age','Tenure','MonthlyCharges','TotalCharges']]
         y = df['Churn']
         model = RandomForestClassifier(n_estimators=100, random_state=42)
-        model.fit(*train_test_split(X,y,test_size=0.2,random_state=42)[:2])  # train only
+
+        # FIXED
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+        model.fit(X_train, y_train)
 
         probs = model.predict_proba(X)[:,1]
         df['ChurnProbability'] = (probs*100).round(2)
@@ -240,6 +244,7 @@ async def predict_churn(file: UploadFile = File(...)):
         return {"data": df[['Customer','Gender','Age','Tenure','MonthlyCharges','TotalCharges','ChurnProbability','ChurnLabel']].to_dict(orient="records")}
     except Exception as e:
         return JSONResponse(status_code=500, content={"error": str(e)})
+
 
 # ---------------------------
 # Anomaly Detection
