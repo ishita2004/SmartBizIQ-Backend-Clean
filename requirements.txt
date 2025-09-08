@@ -1,21 +1,33 @@
+# FastAPI stack
 fastapi==0.115.0
 uvicorn==0.23.2
 python-multipart==0.0.6
-pillow==9.5.0
-tensorflow==2.15.0
-tensorflow-estimator==2.15.0
-numpy==1.26.3
+
+# Core ML / Data Science
+numpy==1.26.2
 pandas==2.2.3
 scikit-learn==1.6.1
 scipy==1.15.3
-matplotlib==3.8.2
+matplotlib==3.7.2
 seaborn==0.13.2
 plotly==6.1.2
+
+# Deep Learning
+tensorflow==2.15.0
+tensorflow-estimator==2.15.0
+
+# Database & ORM
 sqlalchemy==2.0.41
 psycopg2-binary==2.9.10
+
+# Web / Utilities
 requests==2.32.3
 python-dotenv==1.1.0
 aiohttp==3.12.12
 jinja2==3.1.6
 click==8.2.0
 cryptography==45.0.4
+
+# Image Processing
+Pillow==9.4.0  # Works reliably on Python 3.11
+
