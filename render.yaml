@@ -2,8 +2,10 @@ services:
   - type: web
     name: SmartBizIQ-Backend
     env: python
-    runtime: python-3.12
+    plan: free
+    region: oregon
     buildCommand: |
       pip install --upgrade pip setuptools wheel
       pip install --no-cache-dir -r requirements.txt
     startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    pythonVersion: 3.12.3
