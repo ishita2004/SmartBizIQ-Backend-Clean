@@ -46,6 +46,11 @@ app.add_middleware(
 # ---------------------------
 # Helper functions
 # ---------------------------
+
+@app.get("/")
+def read_root():
+    return {"message": "SmartBizIQ Backend is running!"}
+
 def create_lstm_or_gru_model(model_type, input_shape):
     model = Sequential()
     if model_type == 'lstm':
