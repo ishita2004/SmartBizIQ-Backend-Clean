@@ -26,7 +26,7 @@ from io import StringIO
 
 from model.model import detect_anomalies
 from models import Base
-from database import engine
+
 
 # Initialize DB
 Base.metadata.create_all(bind=engine)
