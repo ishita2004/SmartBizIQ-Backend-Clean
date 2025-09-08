@@ -28,8 +28,6 @@ from model.model import detect_anomalies
 from models import Base
 
 
-# Initialize DB
-Base.metadata.create_all(bind=engine)
 
 # Initialize FastAPI app
 app = FastAPI()
